@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Experience from "../components/Experience.astro";
+import SectionContainer from "../components/SectionContainer.astro";
+import CodeIcon from "../components/Icons/Code.astro";
+import Projects from "../components/Projects.astro";
+import Hero from "../components/Hero.astro";
+import Briefcase from "../components/Icons/Briefcase.astro";
+import TitleSection from "../components/TitleSection.astro";
+import ProfileCheck from "../components/Icons/ProfileCheck.astro";
+import AboutMe from "../components/AboutMe.astro";
+import LogroIcon from "../components/Icons/Logro.astro";
+import Logros from "../components/Logros.astro";
+import Slider from "../components/Slider.astro";
+---
+
+<Layout
+  title="Porfolio de Luis Mi - Desarrollador y Programador Web"
+  description="Contrata a Luis Miguel Hernandez Suarez para crear tus aplicaciones webs. desarrollador web. especializado en crear "
+>
+  <main class="px-4" id="#">
+    <SectionContainer class="py-44 pb-32">
+      <Hero />
+    </SectionContainer>
+  </main>
+
+  <div class="space-y-24 px-4">
+    <SectionContainer>
+      <Slider />
+    </SectionContainer>
+
+    <SectionContainer id="experiencia">
+      <TitleSection>
+        <Briefcase class="size-8" />
+        Experiencia Laboral
+      </TitleSection>
+      <Experience />
+    </SectionContainer>
+
+    <SectionContainer>
+      <TitleSection>
+        <LogroIcon class="size-8" />
+        Logros
+      </TitleSection>
+      <Logros />
+    </SectionContainer>
+
+    <SectionContainer id="proyectos">
+      <TitleSection>
+        <CodeIcon class="" />
+        Proyectos
+      </TitleSection>
+      <Projects />
+    </SectionContainer>
+
+    <SectionContainer id="sobre-mi">
+      <TitleSection>
+        <ProfileCheck class="size-8" />
+        Sobre mí
+      </TitleSection>
+      <AboutMe />
+    </SectionContainer>
+  </div>
+</Layout>

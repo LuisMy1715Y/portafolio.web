@@ -1,0 +1,23 @@
+---
+import ExperienceItem from "./ExperienceItems.astro";
+import type Link from "./Icons/Link.astro";
+const EXPERIENCE = [
+  {
+    date: "Dic 2024",
+    title: "Asesor de Ventas",
+    company: "HomeCenter Sodimac Colombia",
+    description:
+      "Asesor de ventas en Homecenter Sodimac Colombia, especializado en muebles. Ayudo a los clientes a elegir el mobiliario ideal para sus hogares, brindando asesoría en diseño, funcionalidad y presupuesto. Me encargo de ofrecer una atención personalizada, mantenerme al día con las tendencias y promociones, y asegurar que el proceso de compra sea satisfactorio, desde la selección del producto hasta la entrega.",
+  },
+];
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>
