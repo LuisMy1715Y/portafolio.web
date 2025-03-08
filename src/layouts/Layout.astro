@@ -25,6 +25,7 @@ const { description, title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="relative text-white">
+    <SpeedInsights />
     <div
       class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-800 dark:bg-gray-950
       bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(30,45,70,0.9),rgba(10,10,20,0.95))]
@@ -33,7 +34,7 @@ const { description, title } = Astro.props;
     </div>
     <Header />
     <slot />
-    <SpeedInsights />
+    
     <Footer />
     <style is:global>
       :root {
