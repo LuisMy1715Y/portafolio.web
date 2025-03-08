@@ -53,7 +53,7 @@ vercel --prod
 
 Puedes encontrarme en:
 - ✉️ [Email](mailto:hernandezsuarezluismiguel@gmail.com)
-- 🔗 [LinkedIn](www.linkedin.com/in/luismy1517y)
+- 🔗 [LinkedIn](https://www.linkedin.com/in/luismy1517y/)
 
 ¡Gracias por visitar mi portafolio! 😊
 
