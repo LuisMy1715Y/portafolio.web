@@ -6,6 +6,7 @@ import Link from "./Icons/Link.astro";
 import LinkButton from "./LinkButton.astro";
 import AstroIcon from "./Icons/Astro3.astro";
 import Tailwind from "./Icons/Tailwind.astro";
+import Nextjs from "./Icons/Nextjs.astro";
 
 const TAGS = {
   REACT: {
@@ -28,6 +29,11 @@ const TAGS = {
     class: "bg-blue-300/40 text-white",
     icon: Tailwind,
   },
+  NEXT: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: Nextjs,
+  },
 };
 interface Props {
   link?: string;
@@ -49,7 +55,7 @@ const PROJECTS = [
       "Un espacio de trabajo organizado e innovador inspirado en Notion para la productividad y la creatividad.",
     github: "https://github.com/LuisMy1715Y/novition",
     image: "/projects/novition.webp",
-    tags: [TAGS.REACT, TAGS.TAILWIND, TAGS.TYPESCRIPT],
+    tags: [TAGS.NEXT, TAGS.TYPESCRIPT, TAGS.TAILWIND,],
     link: "",
   },
 ];
