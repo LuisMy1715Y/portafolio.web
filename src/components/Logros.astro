@@ -1,0 +1,36 @@
+---
+import LogrosItems from "./LogrosItems.astro";
+
+const LOGROS = [
+  {
+    image: "/Attainment/NextJS.webp",
+    date: "Febrero 2025",
+    company: "Udemy",
+    link: "https://www.udemy.com/certificate/UC-554ded1c-36ae-406d-bf38-a6fd35f5eac0/",
+  },
+  {
+    image: "/Attainment/React.webp",
+    date: "Diciembre 2024",
+    company: "Udemy",
+    link: "https://www.udemy.com/certificate/UC-066651ad-cc4a-41ae-858c-5aae100d4700/",
+  },
+  {
+    image: "/Attainment/Frontend.webp",
+    date: "Agosto 2024",
+    company: "Udemy",
+    link: "https://www.udemy.com/certificate/UC-5da82bc4-2d3c-4b79-88ed-f84d2604c796/",
+  },
+  
+
+];
+---
+
+<ol class="relative grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 h-full">
+  {
+    LOGROS.map((logros) => (
+      <div class="flex flex-col justify-between p-2 h-full w-full h-56">
+        <LogrosItems {...logros} />
+      </div>
+    ))
+  }
+</ol>

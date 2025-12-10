@@ -1,0 +1,114 @@
+---
+import GitHub from "./Icons/GitHub.astro";
+import React from "./Icons/React.astro";
+import TypeScript from "./Icons/TypeScript.astro";
+import Link from "./Icons/Link.astro";
+import LinkButton from "./LinkButton.astro";
+import AstroIcon from "./Icons/Astro3.astro";
+import Tailwind from "./Icons/Tailwind.astro";
+import Nextjs from "./Icons/Nextjs.astro";
+
+const TAGS = {
+  REACT: {
+    name: "React",
+    class: "bg-black text-white",
+    icon: React,
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    class: "bg-blue-600 text-white",
+    icon: TypeScript,
+  },
+  ASTRO: {
+    name: "Astro",
+    class: "bg-black text-white",
+    icon: AstroIcon,
+  },
+  TAILWIND: {
+    name: "Tailwind CSS",
+    class: "bg-blue-300/40 text-white",
+    icon: Tailwind,
+  },
+  NEXT: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: Nextjs,
+  },
+};
+interface Props {
+  link?: string;
+  github?: string;
+}
+const PROJECTS = [
+  {
+    title: "Porfolio",
+    description:
+      "Portafolio web personal. +5 proyectos destacados. +1 años de experiencia. Desarrollado desde cero con Astro y Tailwind CSS.",
+    github: "https://github.com/LuisMy1715Y/portafolio.web",
+    image: "/projects/porfolio.webp",
+    tags: [TAGS.ASTRO, TAGS.TAILWIND],
+    link: "",
+  },
+  {
+    title: "Novition",
+    description:
+      "Un espacio de trabajo organizado e innovador inspirado en Notion para la productividad y la creatividad.",
+    github: "https://github.com/LuisMy1715Y/Noviton-clone",
+    image: "/projects/novition.webp",
+    tags: [TAGS.NEXT, TAGS.TYPESCRIPT, TAGS.TAILWIND],
+    link: "https://noviton-clone.vercel.app/",
+  },
+];
+---
+
+<div class="flex flex-col gap-y-16">
+  {
+    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+        <div class="w-full md:w-1/2">
+          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+            <img
+              alt="Recién llegado vs 5 años en Nueva Zelanda"
+              class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+              src={image}
+            />
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2 md:max-w-lg">
+          <h3 class="text-2xl font-bold text-purple-700">{title}</h3>
+          <div class="flex flex-wrap mt-2">
+            <ul class="flex flex-row mb-2 gap-x-2">
+              {tags.map((tag) => (
+                <li>
+                  <span
+                    class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                  >
+                    <tag.icon class="size-4" />
+                    {tag.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-2 text-gray-400 text-pretty">{description}</div>
+            <footer class="flex items-end justify-start mt-4 gap-x-4">
+              {github && (
+                <LinkButton href={github}>
+                  <GitHub class="size-6" />
+                  GitHub
+                </LinkButton>
+              )}
+              {link && (
+                <LinkButton href={link}>
+                  <Link class="size-4" />
+                  Ir al Sitio
+                </LinkButton>
+              )}
+            </footer>
+          </div>
+        </div>
+      </article>
+    ))
+  }
+</div>

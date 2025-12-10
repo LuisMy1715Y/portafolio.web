@@ -1,0 +1,37 @@
+---
+import ExperienceItem from "./ExperienceItems.astro";
+
+const EXPERIENCE = [
+  {
+    date: "May 2025 — Actualidad",
+    title: "Especialista en Automatización y Soporte Técnico IA",
+    company: "LucidBot",
+    description:
+      "Encargado del soporte técnico de la plataforma LucidBot, gestionando y resolviendo incidencias con apoyo de herramientas de inteligencia artificial. Responsable de la creación y optimización de prompts, diseño de flujos conversacionales e integración de procesos automatizados para mejorar la eficiencia operativa. Realizo configuraciones técnicas, validación de APIs y estructuras JSON, asegurando implementaciones estables y una experiencia fluida para los usuarios.",
+  },
+  {
+    date: "Feb 2024 - Dic 2024",
+    title: "Vendedor Profesional",
+    company: "HomeCenter Sodimac Colombia",
+    description:
+      "Asesor de ventas en HomeCenter Sodimac Colombia, especializado en muebles. Ayudo a los clientes a elegir el mobiliario ideal para sus hogares, brindando asesoría en diseño, funcionalidad y presupuesto. Me encargo de ofrecer una atención personalizada, mantenerme al día con las tendencias y promociones, y asegurar que el proceso de compra sea satisfactorio, desde la selección del producto hasta la entrega.",
+  },
+  {
+    date: "Jul 2021 — Jul 2022",
+    title: "Desarrollador Frontend | React.js",
+    company: "Transporte San Pedro Ltda",
+    description:
+      "Especializado en el desarrollo de interfaces optimizadas y procesos eficientes. Experiencia en la creación de aplicaciones web con React.js, mejorando la gestión de rutas y optimización logística. Desarrollo de interfaces dinámicas y responsivas para una mejor experiencia de usuario. Implementación de componentes reutilizables y mantenibles con React y CSS Modules. Uso de React Router para navegación fluida y consumo de APIs REST para automatización de procesos.",
+  },
+];
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCE.map((experience) => (
+      <li class="">
+        <ExperienceItem {...experience} />
+      </li>
+    ))
+  }
+</ol>

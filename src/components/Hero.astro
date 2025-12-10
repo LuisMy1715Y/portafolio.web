@@ -1,0 +1,53 @@
+---
+import Badge from "./Badge.astro";
+import SocialPill from "./SocialPill.astro";
+import MailIcon from "./Icons/Mail.astro";
+import LinkedInIcon from "./Icons/LinkedIn.astro";
+import CVInIncon from "./Icons/CV.astro";
+
+const personalImageAlt = "Luis Hernandez";
+---
+
+<div class="max-w-xl">
+  <div class="flex gap-4 mb-4">
+    <img
+      class="rounded-full shadow-lg size-16"
+      src="/hero.jpg"
+      alt={personalImageAlt}
+    />
+    <a
+      href="https://www.linkedin.com/in/luismy1517y/"
+      target="_blank"
+      rel="noopener"
+      class="flex items-center transition md:justify-center md:hover:scale-105"
+    >
+      <Badge>Disponible para trabajar</Badge>
+    </a>
+  </div>
+  <h1 class="text-4xl font-bold tracking-tight sm:text-5xl text-white">
+    Hola, soy Luis Hernández
+  </h1>
+  <p
+    class="mt-6 text-xl text-gray-300 [&>strong]:text-purple-500 [&>strong]:font-semibold"
+  >
+    +1 Año de experiencia. Estudiante de Ingeniería de Software. <strong
+      >Desarrollador Web Frontend.</strong
+    > De Medellin, Colombia. Especializado en crear webs únicas.
+  </p>
+  <nav class="flex flex-wrap gap-4 mt-8">
+    <SocialPill href="mailto:hernandezsuarezluismiguel@gmail.com">
+      <MailIcon class="size-4" />
+      Contáctame
+    </SocialPill>
+    <SocialPill href="https://www.linkedin.com/in/luismy1517y/">
+      <LinkedInIcon class="size-4" />
+      LinkedIn
+    </SocialPill>
+    <SocialPill
+      href="https://docs.google.com/document/d/1xi_LnEt2envws31_imXmRfjqGNtS4TrckGJj5FE-V8Y/edit?usp=sharing"
+    >
+      <CVInIncon class="size-4" />
+      CV
+    </SocialPill>
+  </nav>
+</div>
