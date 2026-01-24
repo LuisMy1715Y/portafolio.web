@@ -4,6 +4,7 @@ import SocialPill from "./SocialPill.astro";
 import MailIcon from "./Icons/Mail.astro";
 import LinkedInIcon from "./Icons/LinkedIn.astro";
 import CVInIncon from "./Icons/CV.astro";
+import BadgeCV from "./BadgeCV.astro";
 
 const personalImageAlt = "Luis Hernandez";
 ---
@@ -25,7 +26,7 @@ const personalImageAlt = "Luis Hernandez";
     </a>
   </div>
   <h1 class="text-4xl font-bold tracking-tight sm:text-5xl text-white">
-    Hola, soy Luis Hernández
+    Hola, soy Luis Hernandez
   </h1>
   <p
     class="mt-6 text-xl text-gray-300 [&>strong]:text-purple-500 [&>strong]:font-semibold"
@@ -43,9 +44,9 @@ const personalImageAlt = "Luis Hernandez";
       <LinkedInIcon class="size-4" />
       LinkedIn
     </SocialPill>
-    <SocialPill href="https://cv-one-gilt.vercel.app/">
+    <BadgeCV href="https://cv-one-gilt.vercel.app/">
       <CVInIncon class="size-4" />
       Curriculum Vitae
-    </SocialPill>
+    </BadgeCV>
   </nav>
 </div>
