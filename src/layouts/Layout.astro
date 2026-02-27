@@ -2,10 +2,8 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import  SpeedInsights  from "@vercel/speed-insights/astro"
-import Analytics from '@vercel/analytics/astro'
-
-
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   title: string;
@@ -35,7 +33,7 @@ const { description, title } = Astro.props;
     <Header />
     <slot />
     <SpeedInsights />
-    <Analytics/>
+    <Analytics />
     <Footer />
     <style is:global>
       :root {
@@ -113,6 +111,13 @@ const { description, title } = Astro.props;
         }
       }
     </style>
-    
+    <script src="https://panel.lucidbot.co/webchat/plugin.js?v=6"
+    ></script><script>
+      ktt10.setup({
+        id: "ob67M8iASczDPFqn",
+        accountId: "2783776",
+        color: "#227D1D",
+      });
+    </script>
   </body>
 </html>
