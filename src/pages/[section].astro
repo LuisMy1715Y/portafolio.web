@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HomeContent from "../components/HomeContent.astro";
+
+export function getStaticPaths() {
+  return ["experiencia", "proyectos", "sobre-mi"].map((section) => ({
+    params: { section },
+  }));
+}
+
+const { section } = Astro.params;
+---
+
+<Layout
+  title="Portafolio de Luis Mi - Desarrollador y Programador Web"
+  description="Portafolio de Luis Miguel Hernandez Suarez, desarrollador frontend."
+>
+  <HomeContent />
+  <script is:inline define:vars={{ section }}>
+    if (section) {
+      const target = document.getElementById(section);
+      const headerHeight = document.querySelector("[data-site-header]")?.clientHeight ?? 0;
+
+      if (target) {
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - headerHeight - 16,
+          behavior: "auto",
+        });
+      }
+    }
+  </script>
+</Layout>

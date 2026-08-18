@@ -3,32 +3,40 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="opacity-80 m-4 min-[375px]:pl-4 md:pl-0 mt-16 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center"
+  class="mx-auto mb-10 mt-24 flex w-full max-w-[1280px] justify-center px-7 sm:px-10 lg:px-16 xl:px-20"
 >
   <div
-    class="rounded-lg w-full max-w-screen-xl mx-auto md:flex md:items-center md:justify-between py-4"
+    class="relative mx-auto w-full overflow-hidden rounded-2xl border border-[#A78BFA]/25 bg-[#201C2B]/80 px-6 py-5 shadow-xl shadow-black/25 backdrop-blur-xl md:flex md:items-center md:justify-between md:px-8"
   >
-    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
+    <span
+      class="max-w-3xl text-sm leading-relaxed text-[#B7AEC8] sm:text-center md:text-left"
       >© {currentYear}
       <a
         href="https://www.facebook.com/luismy13/"
-        class="hover:underline"
-        target="_blank">LuisMi™</a
+        class="font-bold text-[#F8A9D2] transition-colors hover:text-[#FFB09A]"
+        target="_blank">Luis Hernandez™</a
       >. Todos los derechos reservados. Los recursos de terceros utilizados en
       este sitio pertenecen a sus respectivos autores y se emplean conforme a
       sus licencias.
     </span>
     <ul
-      class="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0"
+      class="mt-5 flex w-fit items-center gap-1 rounded-full border border-[#A78BFA]/25 bg-[#171421]/70 p-1 text-sm font-medium text-[#D5CCE4] sm:mt-0"
     >
       <li>
-        <a href="#sobre-mi" class="hover:underline me-4 md:me-6">Sobre mí</a>
+        <a
+          href="https://cv-one-gilt.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block rounded-full bg-gradient-to-r from-[#845EC2] to-[#F472B6] px-4 py-2 font-semibold text-white shadow-lg shadow-[#D65DB1]/25 transition hover:brightness-110"
+          >Ver mi CV</a
+        >
       </li>
       <li>
         <a
           id="contacto"
           href="mailto:hernandezsuarezluismiguel@gmail.com"
-          class="hover:underline">Contacto</a
+          class="block rounded-full px-3 py-2 transition hover:bg-[#33233C] hover:text-[#F8A9D2]"
+          >Contacto</a
         >
       </li>
     </ul>

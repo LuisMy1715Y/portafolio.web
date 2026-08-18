@@ -1,66 +1,271 @@
 ---
-const navItems = [
-  {
-    title: "Inicio",
-    label: "inicio",
-    url: "#",
-  },
-  {
-    title: "Experiencia",
-    label: "experiencia",
-    url: "#experiencia",
-  },
-  {
-    title: "Proyectos",
-    label: "proyectos",
-    url: "#proyectos",
-  },
+import CVIcon from "./Icons/CV.astro";
+import BadgeCV from "./BadgeCV.astro";
 
-  {
-    title: "Sobre mí",
-    label: "sobre-mi",
-    url: "#sobre-mi",
-  },
+const navItems = [
+  { title: "Inicio", label: "inicio", url: "/" },
+  { title: "Experiencia", label: "experiencia", url: "/experiencia" },
+  { title: "Proyectos", label: "proyectos", url: "/proyectos" },
+  { title: "Sobre mí", label: "sobre-mi", url: "/sobre-mi" },
 ];
 ---
 
-<header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
->
-  <nav
-    class="flex px-3 text-sm font-medium rounded-full text-white justify-center items-center"
-  >
-    {
-      navItems.map((link) => (
-        <a
-          class="relative block px-2 py-2 transition hover:text-purple-500/80"
-          aria-label={link.label}
-          href={link.url}
-        >
-          {link.title}
-        </a>
-      ))
-    }
+<header class="site-header" data-site-header>
+  <nav class="site-nav" aria-label="Navegación principal">
+    <div class="nav-start" aria-label="Perfil de Luis Hernandez">
+      <a
+        class="nav-availability"
+        href="https://www.linkedin.com/in/luismy1517y/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="/hero.png" alt="Luis Hernandez" />
+        <span>Disponible para trabajar</span>
+      </a>
+    </div>
+
+    <div class="nav-items">
+      {
+        navItems.map((link) => (
+          <a
+            class:list={["nav-link", { "nav-link--active": link.url === "/" }]}
+            aria-label={link.label}
+            aria-current={link.url === "/" ? "page" : undefined}
+            data-nav-link
+            href={link.url}
+          >
+            {link.title}
+          </a>
+        ))
+      }
+    </div>
+    <div class="nav-cv">
+      <BadgeCV href="https://cv-one-gilt.vercel.app/">
+        <CVIcon class="size-4" />
+        <span>Ver mi CV</span>
+      </BadgeCV>
+    </div>
   </nav>
 </header>
 
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  const heroProfile = document.querySelector<HTMLElement>(
+    "[data-hero-profile]",
+  );
+  const navLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"),
+  );
+
+  const setActiveLink = (path = window.location.pathname || "/") => {
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === path;
+      link.classList.toggle("nav-link--active", isActive);
+      link.toggleAttribute("aria-current", isActive);
+    });
+  };
+
+  const syncHeaderWithHero = () => {
+    if (!header || !hero || !heroProfile) return;
+    const headerHeight = header.offsetHeight;
+    const profileReachedNav =
+      heroProfile.getBoundingClientRect().top <= headerHeight + 12;
+    const heroHasPassedNav =
+      hero.getBoundingClientRect().bottom <= headerHeight + 12;
+
+    header.classList.toggle("is-profile-visible", profileReachedNav);
+    header.classList.toggle("is-cv-visible", heroHasPassedNav);
+  };
+
+  setActiveLink();
+  syncHeaderWithHero();
+  window.addEventListener("scroll", syncHeaderWithHero, { passive: true });
+  window.addEventListener("resize", syncHeaderWithHero);
+  navLinks.forEach((link) =>
+    link.addEventListener("click", (event) => {
+      const path = link.getAttribute("href") ?? "/";
+      const sectionId = path.slice(1);
+
+      event.preventDefault();
+      history.pushState({}, "", path);
+      setActiveLink(path);
+
+      if (!sectionId) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    }),
+  );
+</script>
+
 <style>
-  nav {
-    animation: nav-shadown 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
+  .site-header {
+    position: fixed;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    border-bottom: 1px solid rgb(167 139 250 / 0.2);
+    background: rgb(17 18 26 / 0.9);
+    box-shadow: 0 3px 16px rgb(0 0 0 / 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .site-nav {
+    position: relative;
+    display: flex;
+    min-height: 4.25rem;
+    align-items: center;
+    margin-inline: 3rem;
+  }
+  .nav-start,
+  .nav-items {
+    display: flex;
+    align-items: center;
+  }
+  .nav-start {
+    gap: 0.5rem;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition:
+      max-width 500ms ease,
+      margin-right 500ms ease,
+      opacity 220ms ease,
+      transform 500ms ease;
+  }
+  .is-profile-visible .nav-start {
+    max-width: 22rem;
+    margin-right: 1.5rem;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nav-availability {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-availability {
+    padding: 0.38rem 0.7rem 0.38rem 0.42rem;
+    color: #cbbeff;
+    background: #211c30;
+    border: 1px solid rgb(244 114 182 / 0.3);
+  }
+  .nav-availability img {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    object-fit: cover;
+  }
+  .nav-cv {
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(8px, -2px);
+    transition: opacity 180ms ease, transform 280ms ease;
+  }
+  .nav-cv :global(a) {
+    box-shadow: none;
+    white-space: nowrap;
+  }
+  .is-cv-visible .nav-cv {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(0, 0);
+  }
+  .nav-items {
+    gap: 0.15rem;
+    margin-left: auto;
+    transition: margin-right 280ms ease;
+  }
+  .is-cv-visible .nav-items {
+    margin-right: 9rem;
+  }
+  .nav-link {
+    position: relative;
+    padding: 0.6rem 0.8rem;
+    color: #c7bed8;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+  .nav-link::after {
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0.28rem;
+    left: 0.8rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: #f472b6;
+    content: "";
+    opacity: 0;
+    transform: scaleX(0.4);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link--active {
+    color: #f8a9d2;
+    outline: none;
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link--active::after {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
-  nav {
-    @apply bg-gray-800;
-  }
-
-  @keyframes nav-shadown {
-    0% {
-      @apply bg-gray-700;
+  @media (max-width: 767px) {
+    .site-header {
+      top: auto;
+      bottom: 1rem;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      pointer-events: none;
     }
-    to {
-      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+    .site-nav {
+      min-height: auto;
+      margin-inline: 1rem;
+      overflow: hidden;
+      border: 1px solid rgb(167 139 250 / 0.3);
+      border-radius: 9999px;
+      background: rgb(30 27 42 / 0.88);
+      box-shadow: 0 12px 35px rgb(0 0 0 / 0.35);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      pointer-events: auto;
+    }
+    .nav-start {
+      display: none;
+    }
+
+    .nav-cv {
+      display: none;
+    }
+    .nav-items {
+      width: 100%;
+      justify-content: space-around;
+    }
+    .nav-link {
+      flex: 1;
+      padding-block: 0.8rem;
+      font-size: 0.75rem;
+      text-align: center;
     }
   }
 </style>

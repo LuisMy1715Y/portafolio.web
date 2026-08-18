@@ -2,63 +2,194 @@
 import LinkInline from "./LinkInLine.astro";
 
 interface Props {
-  title: string;
   company: string;
-  description: string;
-  link?: string;
-  date: string;
+  roles: {
+    title: string;
+    description: string;
+    details?: string;
+    technologies?: string[];
+    date: string;
+    link?: string;
+  }[];
 }
 
-const { title, company, description, link, date } = Astro.props;
+const { company, roles } = Astro.props;
 ---
 
 <div
-  class="relative mx-12 pb-12 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-purple-500/20 dark:before:border-purple-500/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4"
+  class="relative mx-5 grid pb-12 before:absolute before:left-[-24px] before:top-5 before:block before:h-full before:border-l-2 before:border-[#A78BFA]/35 before:content-[''] md:mx-10 md:before:left-[-35px] md:grid-cols-5 md:gap-10 md:space-x-4"
 >
   <div class="relative pb-12 md:col-span-2">
-    <div class="sticky top-0">
-      <span class="text-purple-600 -left-[42px] absolute rounded-full text-5xl"
-        >&bull;</span
-      >
-
-      <h3 class="text-xl font-bold text-purple-600">{title}</h3>
-      <h4 class="font-semibold text-xl text-gray-400 dark:text-white">
-        {company}
-      </h4>
-      <time class="p-0 m-0 text-sm text-gray-500/80 dark:text-white/80">
-        {date}
-      </time>
+    <div class="sticky top-20">
+      <span
+        class="absolute -left-[28px] top-4 size-3 rounded-full bg-[#F472B6] shadow-[0_0_0_4px_#11121A] md:-left-[39px]"
+        aria-hidden="true"></span>
+      <h3 class="whitespace-pre-line text-2xl font-bold text-[#CBBEFF]">{company}</h3>
     </div>
   </div>
 
-  <div
-    class="relative flex flex-col gap-2 pb-4 text-gray-300 dark:text-gray-300 md:col-span-3"
-  >
-    {description}
-
+  <div class="relative flex flex-col gap-12 pb-4 text-[#D5CCE4] md:col-span-3">
     {
-      link && (
-        <LinkInline href={link}>
-          Saber más{" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-5 icon icon-tabler icon-tabler-chevron-right"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <>
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l6 6l-6 6" />
-            </>
-          </svg>
-        </LinkInline>
-      )
+      roles.map((role) => (
+        <section class="border-l-2 border-[#F472B6]/45 pl-5">
+          <h4 class="text-2xl font-bold text-[#F8A9D2]">{role.title}</h4>
+          <time class="mb-3 block text-sm font-bold uppercase tracking-wide text-[#FFB09A]">
+            {role.date}
+          </time>
+          <p class="leading-relaxed">{role.description}</p>
+
+          {role.details && (
+            <details class="experience-details">
+              <summary>
+                <span class="more-label">Ver más</span>
+                <span class="less-label">Ver menos</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="details-arrow"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </summary>
+              <p class="details-content">{role.details}</p>
+            </details>
+          )}
+
+          {role.technologies && role.technologies.length > 0 && (
+            <div class="technologies">
+              <p>Tecnologías y competencias</p>
+              <ul>
+                {role.technologies.map((technology) => (
+                  <li>
+                    <span class="technology-tag">{technology}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {role.link && (
+            <LinkInline href={role.link}>
+              Saber más{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-chevron-right w-5"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 6l6 6l-6 6" />
+              </svg>
+            </LinkInline>
+          )}
+        </section>
+      ))
     }
   </div>
 </div>
+
+<style>
+  .experience-details {
+    margin-top: 0.65rem;
+  }
+
+  .experience-details summary {
+    display: flex;
+    width: fit-content;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    gap: 0.35rem;
+    color: #f8a9d2;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .experience-details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .less-label {
+    display: none;
+  }
+
+  .experience-details[open] .more-label {
+    display: none;
+  }
+
+  .experience-details[open] .less-label {
+    display: inline;
+  }
+
+  .details-arrow {
+    transition: transform 180ms ease;
+  }
+
+  .experience-details[open] .details-arrow {
+    transform: rotate(180deg);
+  }
+
+  .details-content {
+    margin-top: 0.65rem;
+    line-height: 1.65;
+  }
+
+  .technologies {
+    margin-top: 1rem;
+  }
+
+  .technologies > p {
+    margin: 0;
+    color: #b7aec8;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .technologies ul {
+    display: flex;
+    margin: 0.55rem 0 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .technology-tag {
+    display: inline-flex;
+    border: 1px solid rgb(167 139 250 / 0.3);
+    border-radius: 9999px;
+    background: #211c30;
+    padding: 0.3rem 0.65rem;
+    color: #d5cce4;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .technologies li:nth-child(3n + 2) .technology-tag {
+    border-color: rgb(244 114 182 / 0.4);
+    background: #38243a;
+    color: #f8a9d2;
+  }
+
+  .technologies li:nth-child(3n) .technology-tag {
+    border-color: rgb(251 139 107 / 0.4);
+    background: #3b2428;
+    color: #ffb09a;
+  }
+</style>

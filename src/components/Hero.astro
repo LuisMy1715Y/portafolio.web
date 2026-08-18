@@ -9,11 +9,11 @@ import BadgeCV from "./BadgeCV.astro";
 const personalImageAlt = "Luis Hernandez";
 ---
 
-<div class="max-w-xl">
-  <div class="flex gap-4 mb-4">
+<div class="mx-auto max-w-xl text-center" data-hero>
+  <div class="mb-4 flex justify-center gap-4" data-hero-profile>
     <img
       class="rounded-full shadow-lg size-16"
-      src="/hero.jpg"
+      src="/hero.png"
       alt={personalImageAlt}
     />
     <a
@@ -25,17 +25,19 @@ const personalImageAlt = "Luis Hernandez";
       <Badge>Disponible para trabajar</Badge>
     </a>
   </div>
-  <h1 class="text-4xl font-bold tracking-tight sm:text-5xl text-white">
-    Hola, soy Luis Hernandez
+  <h1
+    class="text-4xl font-bold tracking-tight text-[#F4F1FA] sm:text-5xl [&>strong]:text-[#F472B6]"
+  >
+    Hola, soy <strong>Luis Miguel Hernandez</strong>
   </h1>
   <p
-    class="mt-6 text-xl text-gray-300 [&>strong]:text-purple-500 [&>strong]:font-semibold"
+    class="mt-6 text-xl text-[#C7BED8] [&>strong]:font-semibold [&>strong]:text-[#B9A3FF]"
   >
     +1 Año de experiencia. Estudiante de Ingeniería de Software. <strong
       >Desarrollador Web Frontend.</strong
     > De Medellin, Colombia. Especializado en crear webs únicas.
   </p>
-  <nav class="flex flex-wrap gap-4 mt-8">
+  <nav class="mt-8 flex flex-wrap justify-center gap-4">
     <SocialPill href="mailto:hernandezsuarezluismiguel@gmail.com">
       <MailIcon class="size-4" />
       Contáctame
@@ -44,9 +46,26 @@ const personalImageAlt = "Luis Hernandez";
       <LinkedInIcon class="size-4" />
       LinkedIn
     </SocialPill>
-    <BadgeCV href="https://cv-one-gilt.vercel.app/">
+    <BadgeCV
+      href="https://cv-one-gilt.vercel.app/"
+      aria-label="Ver el Curriculum Vitae de Luis Hernandez"
+    >
       <CVInIncon class="size-4" />
-      Curriculum Vitae
+      Ver mi CV
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 12h14m-6-6 6 6-6 6"></path>
+      </svg>
     </BadgeCV>
   </nav>
 </div>

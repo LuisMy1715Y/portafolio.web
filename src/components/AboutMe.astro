@@ -3,10 +3,10 @@ const personalImageAlt = "Luis Hernandez";
 ---
 
 <article
-  class="flex flex-col items-center justify-center gap-8 text-gray-300 md:flex-row"
+  class="flex flex-col items-center justify-center gap-8 text-[#C7BED8] md:flex-row md:gap-16 lg:gap-24"
 >
   <div
-    class="[&>p]:mb-4 [&>p>strong]:text-purple-500 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1"
+    class="order-2 w-full max-w-3xl text-pretty leading-relaxed [&>p]:mb-4 [&>p>strong]:font-mono [&>p>strong]:font-normal [&>p>strong]:text-[#F472B6] md:order-1"
   >
     <p>
       Me llamo Luis Miguel Hernández, aunque muchos me conocen como LuisMi, y
@@ -39,9 +39,9 @@ const personalImageAlt = "Luis Hernandez";
   <img
     width="200"
     height="200"
-    src="/AboutMe.png"
+    src="/AboutMe.webp"
     alt={personalImageAlt}
-    class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black-800 ring-1 ring-purple-500"
+    class="order-1 h-full w-64 shrink-0 rotate-3 aspect-square rounded-2xl border border-[#A78BFA]/25 bg-gradient-to-br from-[#332647] to-[#1B1826] p-2 object-cover ring-2 ring-[#A78BFA]/45 shadow-[0_18px_45px_rgba(214,93,177,0.24)] transition duration-300 hover:-translate-y-1 hover:rotate-0 hover:ring-[#F472B6]/65 md:order-2 lg:w-64"
     style="object-position: 50% 50%"
   />
 </article>

@@ -1,5 +1,5 @@
 ---
-import "@fontsource-variable/onest";
+//import "@fontsource-variable/onest";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -23,11 +23,10 @@ const { description, title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="relative text-white">
+  <body class="relative text-[#F4F1FA]">
     <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-800 dark:bg-gray-950
-      bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(30,45,70,0.9),rgba(10,10,20,0.95))]
-      dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(20,30,50,0.7),rgba(5,5,10,0.9))]"
+      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-[#11121A]
+      bg-[radial-gradient(ellipse_75%_60%_at_50%_-20%,rgba(132,94,194,0.25),transparent_65%),radial-gradient(ellipse_45%_35%_at_85%_15%,rgba(214,93,177,0.16),transparent),radial-gradient(ellipse_35%_30%_at_10%_85%,rgba(255,150,113,0.1),transparent)]"
     >
     </div>
     <Header />
@@ -37,16 +36,17 @@ const { description, title } = Astro.props;
     <Footer />
     <style is:global>
       :root {
-        color-scheme: light dark;
+        color-scheme: dark;
       }
 
       html {
         font-family: "Onest Variable", system-ui, sans-serif;
+        background: #11121a;
         scroll-behavior: smooth;
       }
 
       body {
-        color: rgba(17, 17, 17, 0.9);
+        color: #f4f1fa;
         display: flex;
         flex-direction: column;
         min-height: 100vh;
@@ -56,12 +56,6 @@ const { description, title } = Astro.props;
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        body {
-          color: rgba(255, 255, 255, 0.34);
         }
       }
 
@@ -75,41 +69,16 @@ const { description, title } = Astro.props;
         to {
           backdrop-filter: blur(20px);
           border-width: 1px;
-          border-color: rgba(0, 0, 0);
+          border-color: rgba(167, 139, 250, 0.28);
           padding: 0.25rem 0.75rem;
           display: flex;
           flex-direction: row;
           align-items: center;
-          background-color: rgb(229, 229, 229);
+          background-color: rgba(24, 22, 34, 0.88);
           border-radius: 9999px;
         }
       }
 
-      @media (prefers-color-scheme: dark) {
-        @keyframes blur {
-          from {
-            border: 0px;
-          }
-          to {
-            box-shadow:
-              0px 5px 50px -5px rgba(0, 0, 0, 0.1),
-              0px 0px 0 1px rgba(0, 0, 0, 0.3);
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            border-width: 1px;
-            border-color: rgba(0, 0, 0);
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 9999px;
-          }
-        }
-      }
     </style>
   </body>
 </html>

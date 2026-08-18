@@ -3,26 +3,77 @@ import ExperienceItem from "./ExperienceItems.astro";
 
 const EXPERIENCE = [
   {
-    date: "May 2025 — Actualidad",
-    title: "Especialista en Automatización y Soporte Técnico IA",
     company: "LucidBot",
-    description:
-      "Encargado del soporte técnico de la plataforma LucidBot, gestionando y resolviendo incidencias con apoyo de herramientas de inteligencia artificial. Responsable de la creación y optimización de prompts, diseño de flujos conversacionales e integración de procesos automatizados para mejorar la eficiencia operativa. Realizo configuraciones técnicas, validación de APIs y estructuras JSON, asegurando implementaciones estables y una experiencia fluida para los usuarios.",
+    roles: [
+      {
+        date: "Feb 2026 — Actualidad",
+        title: "Supervisor del Área de Soporte Técnico",
+        description:
+          "Lidero el equipo de Soporte Técnico, supervisando la gestión de incidencias y garantizando la calidad del servicio brindado a los clientes.",
+        details:
+          "Coordino la capacitación y el acompañamiento de nuevos especialistas, además de realizar pruebas técnicas durante los procesos de selección para evaluar sus competencias. También desarrollo implementaciones personalizadas de asistentes de inteligencia artificial para diferentes marcas, diseñando soluciones a medida, optimizando flujos conversacionales e integrando funcionalidades alineadas con los objetivos de cada cliente.",
+        technologies: [
+          "Inteligencia artificial",
+          "APIs REST",
+          "Prompts",
+          "Automatización",
+        ],
+      },
+      {
+        date: "Oct 2025 — Ene 2026",
+        title: "Implementador de Procesos Automatizados con IA",
+        description:
+          "Desarrollé e implementé asistentes de inteligencia artificial desde cero, diseñando flujos conversacionales adaptados a los requerimientos de cada cliente.",
+        details:
+          "Configuré y optimicé prompts para mejorar la precisión y el desempeño de los bots, además de integrar servicios externos mediante APIs REST para automatizar procesos y conectar diferentes plataformas. Realicé pruebas, validaciones y ajustes continuos para garantizar implementaciones estables, escalables y alineadas con las necesidades del negocio.",
+        technologies: [
+          "Inteligencia artificial",
+          "APIs REST",
+          "JSON",
+          "Prompts",
+        ],
+      },
+      {
+        date: "May 2025 — Sep 2026",
+        title: "Especialista en Soporte",
+        description:
+          "Brindé soporte técnico especializado a los asistentes de inteligencia artificial de los clientes de LucidBot, diagnosticando y resolviendo incidencias relacionadas con su funcionamiento.",
+        details:
+          "Me encargué de la optimización y mejora continua de prompts para aumentar la precisión de las respuestas, corregir comportamientos no deseados y adaptar los flujos conversacionales a las necesidades de cada cliente. Además, realicé pruebas, validaciones y ajustes funcionales para garantizar una experiencia estable, eficiente y de alta calidad.",
+        technologies: [
+          "Soporte técnico",
+          "Inteligencia artificial",
+          "Prompts",
+          "QA",
+        ],
+      },
+    ],
   },
   {
-    date: "Feb 2024 - Dic 2024",
-    title: "Vendedor Profesional",
-    company: "HomeCenter Sodimac Colombia",
-    description:
-      "Asesor de ventas en HomeCenter Sodimac Colombia, especializado en muebles. Ayudo a los clientes a elegir el mobiliario ideal para sus hogares, brindando asesoría en diseño, funcionalidad y presupuesto. Me encargo de ofrecer una atención personalizada, mantenerme al día con las tendencias y promociones, y asegurar que el proceso de compra sea satisfactorio, desde la selección del producto hasta la entrega.",
+    company: "HomeCenter\nSodimac Colombia",
+    roles: [
+      {
+        date: "Feb 2024 — Dic 2024",
+        title: "Vendedor Profesional — Muebles",
+        description:
+          "Asesor de ventas especializado en muebles, ayudando a los clientes a elegir el mobiliario ideal para sus hogares según diseño, funcionalidad y presupuesto.",
+        details:
+          "Me encargué de ofrecer una atención personalizada, mantenerme al día con las tendencias y promociones, y asegurar que el proceso de compra fuera satisfactorio desde la selección del producto hasta la entrega.",
+        technologies: [
+          "Ventas consultivas",
+          "Atención al cliente",
+          "Diseño de interiores",
+        ],
+      },
+    ],
   },
 ];
 ---
 
-<ol class="relative mt-16">
+<ol class="relative mt-16 px-3 md:px-6">
   {
     EXPERIENCE.map((experience) => (
-      <li class="">
+      <li>
         <ExperienceItem {...experience} />
       </li>
     ))

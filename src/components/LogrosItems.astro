@@ -6,15 +6,37 @@ interface Props {
   link?: string;
 }
 
-const { image, link } = Astro.props;
+const { image, link, company, date } = Astro.props;
 ---
 
-<article class="rounded-lg hover:scale-105 transition duration-300 ease-in-out">
+<article
+  class="group overflow-hidden rounded-2xl border border-[#A78BFA]/25 bg-[#201C2B]/80 p-3 shadow-xl shadow-black/25 backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#F472B6]/55 hover:shadow-2xl hover:shadow-[#D65DB1]/20"
+>
   <figure
-    class="relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0"
+    class="relative aspect-[16/10] overflow-hidden rounded-xl bg-[#171421]"
   >
-    <a href={link} target="_blank">
-      <img class="rounded-lg" src={image} alt="image description" />
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block h-full"
+    >
+      <img
+        class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        src={image}
+        alt={`Certificado de ${company}, ${date}`}
+      />
     </a>
   </figure>
+  <footer class="flex items-center justify-between px-2 pb-1 pt-4">
+    <div>
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.14em] text-[#F8A9D2]"
+      >
+        Certificado
+      </p>
+      <p class="mt-1 font-bold text-[#E9E2F5]">{company}</p>
+    </div>
+    <time class="text-sm text-[#B7AEC8]">{date}</time>
+  </footer>
 </article>
