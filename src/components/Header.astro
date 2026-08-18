@@ -3,10 +3,25 @@ import CVIcon from "./Icons/CV.astro";
 import BadgeCV from "./BadgeCV.astro";
 
 const navItems = [
-  { title: "Inicio", label: "inicio", url: "/" },
-  { title: "Experiencia", label: "experiencia", url: "/experiencia" },
-  { title: "Proyectos", label: "proyectos", url: "/proyectos" },
-  { title: "Sobre mí", label: "sobre-mi", url: "/sobre-mi" },
+  { title: "Inicio", mobileTitle: "Inicio", label: "inicio", url: "/" },
+  {
+    title: "Experiencia",
+    mobileTitle: "Experiencia",
+    label: "experiencia",
+    url: "/experiencia",
+  },
+  {
+    title: "Proyectos",
+    mobileTitle: "Proyectos",
+    label: "proyectos",
+    url: "/proyectos",
+  },
+  {
+    title: "Sobre mí",
+    mobileTitle: "Perfil",
+    label: "sobre-mi",
+    url: "/sobre-mi",
+  },
 ];
 ---
 
@@ -34,7 +49,8 @@ const navItems = [
             data-nav-link
             href={link.url}
           >
-            {link.title}
+            <span class="nav-link__desktop">{link.title}</span>
+            <span class="nav-link__mobile">{link.mobileTitle}</span>
           </a>
         ))
       }
@@ -96,7 +112,9 @@ const navItems = [
         return;
       }
 
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      document
+        .getElementById(sectionId)
+        ?.scrollIntoView({ behavior: "smooth" });
     }),
   );
 </script>
@@ -173,7 +191,9 @@ const navItems = [
     opacity: 0;
     pointer-events: none;
     transform: translate(8px, -2px);
-    transition: opacity 180ms ease, transform 280ms ease;
+    transition:
+      opacity 180ms ease,
+      transform 280ms ease;
   }
   .nav-cv :global(a) {
     box-shadow: none;
@@ -229,26 +249,69 @@ const navItems = [
     transform: scaleX(1);
   }
 
+  .nav-link__mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) and (max-width: 1535px) {
+    .site-nav {
+      margin-inline: 1.5rem;
+    }
+    .is-profile-visible .nav-start {
+      max-width: 14rem;
+      margin-right: 0.75rem;
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .nav-items {
+      margin-right: 0;
+    }
+    .is-cv-visible .nav-items {
+      margin-right: 9rem;
+    }
+    .nav-items {
+      gap: 0;
+    }
+    .nav-link {
+      padding: 0.6rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+    .nav-availability {
+      gap: 0.35rem;
+      padding: 0.3rem 0.55rem 0.3rem 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .nav-availability img {
+      width: 1.45rem;
+      height: 1.45rem;
+    }
+  }
+
   @media (max-width: 767px) {
     .site-header {
-      top: auto;
-      bottom: 1rem;
-      border: 0;
-      background: transparent;
+      top: 0;
+      bottom: auto;
+      border-bottom: 1px solid rgb(167 139 250 / 0.22);
+      background: #11121a;
       box-shadow: none;
-      pointer-events: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      pointer-events: auto;
     }
     .site-nav {
-      min-height: auto;
-      margin-inline: 1rem;
-      overflow: hidden;
-      border: 1px solid rgb(167 139 250 / 0.3);
-      border-radius: 9999px;
-      background: rgb(30 27 42 / 0.88);
-      box-shadow: 0 12px 35px rgb(0 0 0 / 0.35);
-      backdrop-filter: blur(18px) saturate(150%);
-      -webkit-backdrop-filter: blur(18px) saturate(150%);
-      pointer-events: auto;
+      min-height: 4.1rem;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding-inline: 1rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
     }
     .nav-start {
       display: none;
@@ -259,13 +322,47 @@ const navItems = [
     }
     .nav-items {
       width: 100%;
-      justify-content: space-around;
+      gap: 0.35rem;
+      margin-left: 0;
+      justify-content: space-between;
+    }
+    .is-cv-visible .nav-items {
+      margin-right: 0;
     }
     .nav-link {
       flex: 1;
-      padding-block: 0.8rem;
-      font-size: 0.75rem;
+      min-width: 0;
+      padding: 0.85rem 0.25rem;
+      border-radius: 0.55rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.1;
       text-align: center;
+    }
+    .nav-link__desktop {
+      display: none;
+    }
+    .nav-link__mobile {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .nav-link::after {
+      right: auto;
+      bottom: 0.3rem;
+      left: 50%;
+      width: 1.3rem;
+      transform: translateX(-50%) scaleX(0.4);
+    }
+    .nav-link--active {
+      background: rgb(244 114 182 / 0.1);
+      box-shadow: none;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after,
+    .nav-link--active::after {
+      transform: translateX(-50%) scaleX(1);
     }
   }
 </style>

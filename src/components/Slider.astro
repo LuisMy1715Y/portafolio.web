@@ -26,7 +26,8 @@ const skills = [
 ];
 ---
 
-<section class="skills-grid" aria-label="Tecnologías con las que trabajo">
+<section class="skills-slider" aria-label="Tecnologías con las que trabajo">
+  <div class="skills-grid">
   {
     skills.map((skill) => (
       <div class="skill-card">
@@ -38,14 +39,36 @@ const skills = [
       </div>
     ))
   }
+  </div>
+  <div class="skills-grid skills-grid--duplicate" aria-hidden="true">
+    {
+      skills.map((skill) => (
+        <div class="skill-card">
+          <skill.icon
+            class={`skill-icon ${skill.name === "Astro" ? "skill-icon--astro" : ""}`}
+            aria-hidden="true"
+          />
+          <span>{skill.name}</span>
+        </div>
+      ))
+    }
+  </div>
 </section>
 
 <style>
+  .skills-slider {
+    width: 100%;
+  }
+
   .skills-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
+  }
+
+  .skills-grid--duplicate {
+    display: none;
   }
 
   .skill-card {
@@ -109,6 +132,44 @@ const skills = [
 
   .skill-icon--astro :global(path[fill="#fff"]) {
     fill: #f4f1fa;
+  }
+
+  @media (max-width: 1535px) {
+    .skills-slider {
+      display: flex;
+      width: calc(100% + 1rem);
+      margin-inline: -0.5rem;
+      padding-inline: 0.5rem;
+      overflow: hidden;
+      gap: 0.75rem;
+      mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    }
+
+    .skills-grid,
+    .skills-grid--duplicate {
+      display: flex;
+      width: max-content;
+      flex: 0 0 auto;
+      flex-wrap: nowrap;
+      animation: skills-marquee 30s linear infinite;
+    }
+
+    .skill-card {
+      width: 7rem;
+    }
+  }
+
+  @keyframes skills-marquee {
+    to {
+      transform: translateX(calc(-100% - 0.75rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skills-grid,
+    .skills-grid--duplicate {
+      animation: none;
+    }
   }
 
 </style>
