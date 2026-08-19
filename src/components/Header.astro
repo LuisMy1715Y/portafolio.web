@@ -73,7 +73,6 @@ const navItems = [
   const navLinks = Array.from(
     document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"),
   );
-
   const setActiveLink = (path = window.location.pathname || "/") => {
     navLinks.forEach((link) => {
       const isActive = link.getAttribute("href") === path;
