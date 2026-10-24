@@ -1,0 +1,74 @@
+---
+interface Props {
+  variant?: "lineal" | "ventana" | "mono";
+  size?: "sm" | "md" | "lg";
+  label?: string;
+}
+
+const { variant = "lineal", size = "sm", label } = Astro.props;
+const isWindow = variant === "ventana";
+const chevron = isWindow ? "M9.5 11 14.5 16 9.5 21" : "M4 6.5 9.5 12 4 17.5";
+const cursor = isWindow ? "M17.5 21H23" : "M13 17.5H20";
+const viewBox = isWindow ? "0 0 32 32" : "0 0 24 24";
+const strokeWidth = isWindow ? 2.75 : 2.5;
+---
+
+<svg
+  class="logo"
+  data-variant={variant}
+  data-size={size}
+  viewBox={viewBox}
+  width="32"
+  height="32"
+  fill="none"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role={label ? "img" : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : "true"}
+  focusable="false"
+>
+  {isWindow && <rect class="logo-frame" width="32" height="32" rx="7" />}
+  <path class="logo-chevron" d={chevron} />
+  <path class="logo-cursor" d={cursor} />
+</svg>
+
+<style>
+  .logo {
+    flex-shrink: 0;
+    width: var(--logo-sm);
+    height: var(--logo-sm);
+  }
+
+  .logo[data-size="md"] {
+    width: var(--logo-md);
+    height: var(--logo-md);
+  }
+
+  .logo[data-size="lg"] {
+    width: var(--logo-lg);
+    height: var(--logo-lg);
+  }
+
+  .logo-chevron {
+    stroke: currentColor;
+  }
+
+  .logo-cursor {
+    stroke: var(--logo-cursor);
+  }
+
+  .logo[data-variant="mono"] .logo-cursor {
+    stroke: currentColor;
+  }
+
+  .logo-frame {
+    fill: var(--accent-500);
+  }
+
+  .logo[data-variant="ventana"] .logo-chevron,
+  .logo[data-variant="ventana"] .logo-cursor {
+    stroke: var(--on-accent);
+  }
+</style>

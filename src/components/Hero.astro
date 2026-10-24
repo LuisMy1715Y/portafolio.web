@@ -1,71 +1,198 @@
 ---
 import Badge from "./Badge.astro";
-import SocialPill from "./SocialPill.astro";
+import Button from "./Button.astro";
 import MailIcon from "./Icons/Mail.astro";
+import CVIcon from "./Icons/CV.astro";
 import LinkedInIcon from "./Icons/LinkedIn.astro";
-import CVInIncon from "./Icons/CV.astro";
-import BadgeCV from "./BadgeCV.astro";
-
-const personalImageAlt = "Luis Hernandez";
+import GitHubIcon from "./Icons/GitHub.astro";
+import { Image } from "astro:assets";
+import heroPhoto from "../assets/hero.png";
+import { profile } from "../data/profile";
+import StackAtom from "./StackAtom.astro";
 ---
 
-<div class="mx-auto max-w-xl text-center" data-hero>
-  <div class="mb-4 flex justify-center gap-4" data-hero-profile>
-    <img
-      class="rounded-full shadow-lg size-16"
-      src="/hero.png"
-      alt={personalImageAlt}
-    />
-    <a
-      href="https://www.linkedin.com/in/luismy1517y/"
-      target="_blank"
-      rel="noopener"
-      class="flex items-center transition md:justify-center md:hover:scale-105"
-    >
-      <Badge>Disponible para trabajar</Badge>
-    </a>
+<section class="hero" aria-labelledby="hero-titulo">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <div class="hero-top">
+        <Image
+          class="hero-photo"
+          src={heroPhoto}
+          alt={`Retrato de ${profile.name}`}
+          width={144}
+          height={144}
+          format="webp"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <Badge variant="status">{profile.availability}</Badge>
+      </div>
+
+      <div class="hero-heading">
+        <p class="eyebrow">{profile.role}</p>
+        <h1 class="hero-title" id="hero-titulo">
+          <span class="hero-name">{profile.name}</span>
+          <span class="hero-headline">
+            {profile.headline} <em class="hero-accent">{profile.headlineAccent}</em>
+          </span>
+        </h1>
+        <p class="hero-intro">{profile.intro}</p>
+      </div>
+
+      <div class="hero-actions">
+        <Button href={`mailto:${profile.email}`}>
+          <MailIcon />
+          Contáctame
+        </Button>
+        <Button href={profile.cv} variant="secondary" external>
+          <CVIcon />
+          Ver CV
+        </Button>
+        <div class="hero-social">
+          <Button href={profile.github} variant="ghost" size="icon" external label="GitHub de Luis Miguel Hernández">
+            <GitHubIcon />
+          </Button>
+          <Button href={profile.linkedin} variant="ghost" size="icon" external label="LinkedIn de Luis Miguel Hernández">
+            <LinkedInIcon />
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <StackAtom />
+    </div>
   </div>
-  <h1
-    class="text-4xl font-bold tracking-tight text-[#F4F1FA] sm:text-5xl [&>strong]:text-[#F472B6]"
-  >
-    Hola, soy <strong>Luis Miguel Hernandez</strong>
-  </h1>
-  <p
-    class="mt-6 text-xl text-[#C7BED8] [&>strong]:font-semibold [&>strong]:text-[#B9A3FF]"
-  >
-    +1 Año de experiencia. Estudiante de Ingeniería de Software. <strong
-      >Desarrollador Web Frontend.</strong
-    > De Medellin, Colombia. Especializado en crear webs únicas.
-  </p>
-  <nav class="mt-8 flex flex-wrap justify-center gap-4">
-    <SocialPill href="mailto:hernandezsuarezluismiguel@gmail.com">
-      <MailIcon class="size-4" />
-      Contáctame
-    </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/luismy1517y/">
-      <LinkedInIcon class="size-4" />
-      LinkedIn
-    </SocialPill>
-    <BadgeCV
-      href="https://cv-one-gilt.vercel.app/"
-      aria-label="Ver el Curriculum Vitae de Luis Hernandez"
-    >
-      <CVInIncon class="size-4" />
-      Ver mi CV
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M5 12h14m-6-6 6 6-6 6"></path>
-      </svg>
-    </BadgeCV>
-  </nav>
-</div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--hero-pad-y);
+    overflow-x: clip;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: var(--hero-gap);
+    justify-items: start;
+    min-width: 0;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .hero-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero-photo {
+    width: var(--avatar-md);
+    height: var(--avatar-md);
+    border-radius: var(--radius-full);
+    border: var(--border-w) solid var(--line);
+    object-fit: cover;
+    background: var(--surface-2);
+  }
+
+  .hero-heading {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .hero-title {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .hero-name {
+    color: var(--ink-3);
+    font-size: var(--text-lg);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .hero-headline {
+    max-width: var(--measure-tight);
+    color: var(--ink);
+    font-size: var(--text-display);
+    font-weight: var(--fw-semibold);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .hero-accent {
+    color: var(--accent-text);
+    font-style: normal;
+  }
+
+  .hero-intro {
+    max-width: var(--measure);
+    color: var(--ink-4);
+    font-size: var(--text-body);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero-social {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  @media (max-width: 767.98px) {
+    .hero-top {
+      flex-wrap: nowrap;
+      gap: var(--space-3);
+    }
+
+    .hero-photo {
+      flex-shrink: 0;
+      width: var(--avatar-hero-sm);
+      height: var(--avatar-hero-sm);
+    }
+
+    .hero-top :global(.badge) {
+      min-width: 0;
+    }
+
+    .hero-headline {
+      font-size: var(--text-display-sm);
+      line-height: var(--leading-tight);
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      justify-self: stretch;
+    }
+
+    .hero-social {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-visual {
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
+</style>

@@ -1,12 +1,47 @@
-<div class="flex items-center">
-  <span class="relative inline-flex overflow-hidden rounded-full p-[2px]">
-    <span
-      class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#845EC2_0%,#D65DB1_50%,#FF6F91_100%)]"
-    ></span>
-    <div
-      class="inline-flex w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-full border border-[#A78BFA]/45 bg-[#211C30] px-3 py-1 text-sm text-[#CBBEFF] backdrop-blur-2xl"
-    >
-      <slot />
-    </div>
-  </span>
-</div>
+---
+interface Props {
+  variant?: "neutral" | "status";
+}
+
+const { variant = "neutral" } = Astro.props;
+---
+
+<span class="badge" data-variant={variant}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    border: var(--border-w) solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    color: var(--ink-3);
+    font-size: var(--text-sm);
+    font-weight: var(--fw-medium);
+    line-height: var(--leading-snug);
+    white-space: nowrap;
+  }
+
+  .badge[data-variant="status"] {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: var(--text-sm);
+    white-space: normal;
+  }
+
+  .badge[data-variant="status"]::before {
+    content: "";
+    flex-shrink: 0;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: var(--radius-full);
+    background: var(--green);
+    box-shadow: 0 0 0 var(--ring-w) var(--green-soft);
+  }
+</style>

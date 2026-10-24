@@ -1,44 +1,28 @@
 ---
-const currentYear = new Date().getFullYear();
+import { profile } from "../data/profile";
+
+const year = new Date().getFullYear();
 ---
 
-<footer
-  class="mx-auto mb-10 mt-24 flex w-full max-w-[1280px] justify-center px-7 sm:px-10 2xl:px-20"
->
-  <div
-    class="relative mx-auto w-full overflow-hidden rounded-2xl border border-[#A78BFA]/25 bg-[#201C2B]/80 px-6 py-5 shadow-xl shadow-black/25 backdrop-blur-xl 2xl:flex 2xl:items-center 2xl:justify-between 2xl:px-8"
-  >
-    <span
-      class="max-w-3xl text-sm leading-relaxed text-[#B7AEC8] sm:text-center 2xl:text-left"
-      >© {currentYear}
-      <a
-        href="https://www.facebook.com/luismy13/"
-        class="font-bold text-[#F8A9D2] transition-colors hover:text-[#FFB09A]"
-        target="_blank">Luis Hernandez™</a
-      >. Todos los derechos reservados. Los recursos de terceros utilizados en
-      este sitio pertenecen a sus respectivos autores y se emplean conforme a
-      sus licencias.
-    </span>
-    <ul
-      class="mx-auto mt-5 flex w-fit items-center gap-1 rounded-full border border-[#A78BFA]/25 bg-[#171421]/70 p-1 text-sm font-medium text-[#D5CCE4] 2xl:mx-0 2xl:mt-0"
-    >
-      <li>
-        <a
-          href="https://cv-one-gilt.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block rounded-full bg-gradient-to-r from-[#845EC2] to-[#F472B6] px-4 py-2 font-semibold text-white shadow-lg shadow-[#D65DB1]/25 transition hover:brightness-110"
-          >Ver mi CV</a
-        >
-      </li>
-      <li>
-        <a
-          id="contacto"
-          href="mailto:hernandezsuarezluismiguel@gmail.com"
-          class="block rounded-full px-3 py-2 transition hover:bg-[#33233C] hover:text-[#F8A9D2]"
-          >Contacto</a
-        >
-      </li>
-    </ul>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {year} {profile.name}</p>
+    <p>{profile.location}</p>
   </div>
 </footer>
+
+<style>
+  .site-footer {
+    border-top: var(--border-w) solid var(--line);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding-block: var(--space-6);
+    color: var(--ink-4);
+    font-size: var(--text-sm);
+  }
+</style>

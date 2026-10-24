@@ -1,0 +1,204 @@
+---
+import { atomOrbits } from "../data/skills";
+import Logo from "./Logo.astro";
+---
+
+<div class="atom" aria-hidden="true">
+  <svg class="atom-orbits" viewBox="0 0 100 100" focusable="false">
+    {
+      atomOrbits.map((_, index) => (
+        <ellipse
+          class="atom-path"
+          cx="50"
+          cy="50"
+          rx="38"
+          ry="16"
+          transform={`rotate(${index * 60} 50 50)`}
+        />
+      ))
+    }
+  </svg>
+
+  <div class="atom-core">
+    <Logo variant="mono" size="md" />
+  </div>
+
+  {
+    atomOrbits.map((orbit, index) => (
+      <div class="atom-orbit" data-orbit={index}>
+        {orbit.electrons.map((label, slot) => (
+          <div class="atom-x" data-slot={slot}>
+            <div class="atom-y">
+              <span class="atom-chip">
+                <span class="atom-dot" />
+                {label}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .atom {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--atom-size);
+    height: var(--atom-size);
+  }
+
+  .atom > * {
+    grid-area: 1 / 1;
+  }
+
+  .atom-orbits {
+    width: 100%;
+    height: 100%;
+  }
+
+  .atom-path {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: var(--border-w);
+    vector-effect: non-scaling-stroke;
+  }
+
+  .atom-core {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--atom-core);
+    height: var(--atom-core);
+    border-radius: var(--radius-xl);
+    background: var(--accent-500);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .atom-core :global(.logo) {
+    width: var(--atom-logo);
+    height: var(--atom-logo);
+  }
+
+  .atom-core::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: var(--border-w) solid var(--accent-500);
+    opacity: 0;
+    animation: atom-pulse var(--pulse-duration) var(--ease-out) infinite;
+  }
+
+  .atom-orbit {
+    --tilt: 0deg;
+    --period: var(--orbit-slow);
+    --y-phase: 0.25;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    transform: rotate(var(--tilt));
+  }
+
+  .atom-orbit[data-orbit="1"] {
+    --tilt: 60deg;
+    --period: var(--orbit-base);
+    --y-phase: 0.75;
+  }
+
+  .atom-orbit[data-orbit="2"] {
+    --tilt: 120deg;
+    --period: var(--orbit-fast);
+  }
+
+  .atom-x,
+  .atom-y {
+    grid-area: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+
+  .atom-x {
+    --x-start: calc(var(--atom-rx) * -1);
+    --x-delay: 0;
+    --y-delay: var(--y-phase);
+    transform: translateX(var(--x-start));
+    animation: atom-x calc(var(--period) / 2) var(--ease-sine) calc(var(--period) * var(--x-delay) * -1) infinite alternate;
+  }
+
+  .atom-x[data-slot="1"] {
+    --x-start: var(--atom-rx);
+    --x-delay: 0.5;
+    --y-delay: calc(var(--y-phase) + 0.5);
+  }
+
+  .atom-y {
+    animation: atom-y calc(var(--period) / 2) var(--ease-sine) calc(var(--period) * var(--y-delay) * -1) infinite alternate;
+  }
+
+  .atom-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border: var(--border-w) solid var(--line);
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+    transform: rotate(calc(var(--tilt) * -1));
+  }
+
+  .atom-dot {
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: var(--radius-xl);
+    background: var(--accent-500);
+  }
+
+  @keyframes atom-x {
+    from {
+      transform: translateX(calc(var(--atom-rx) * -1));
+    }
+    to {
+      transform: translateX(var(--atom-rx));
+    }
+  }
+
+  @keyframes atom-y {
+    from {
+      transform: translateY(calc(var(--atom-ry) * -1));
+    }
+    to {
+      transform: translateY(var(--atom-ry));
+    }
+  }
+
+  @keyframes atom-pulse {
+    0% {
+      opacity: var(--pulse-opacity);
+      transform: scale(1);
+    }
+    70%,
+    100% {
+      opacity: 0;
+      transform: scale(var(--pulse-scale));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atom-core::after,
+    .atom-x,
+    .atom-y {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import { projects } from "../data/projects";
+---
+
+<ul class="projects">
+  {
+    projects.map((project) => (
+      <li>
+        <ProjectCard project={project} />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .projects {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .projects > li {
+    container-type: inline-size;
+  }
+
+  @media (min-width: 640px) {
+    .projects {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .projects > li:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .projects > li:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+  }
+</style>

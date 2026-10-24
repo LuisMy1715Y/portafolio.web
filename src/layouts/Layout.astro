@@ -1,90 +1,78 @@
 ---
-//import "@fontsource-variable/onest";
+import "@fontsource-variable/onest";
+import "../styles/tokens.css";
+import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
+import { profile } from "../data/profile";
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 }
 
-const { description, title } = Astro.props;
+const {
+  title = `${profile.name} · Desarrollador de Software Junior`,
+  description = `${profile.name}, desarrollador de software junior en ${profile.location}. Frontend con React, Next.js, TypeScript y Astro, y APIs con NestJS. Estudiante de Ingeniería de Software.`,
+} = Astro.props;
+
+const canonical = new URL("/", Astro.site ?? Astro.url).href;
+const ogImage = new URL(profile.photo, Astro.site ?? Astro.url).href;
+const themeColor = { light: "#fafaf9", dark: "#111113" };
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.name} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content={themeColor.light} media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={themeColor.dark} media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`Retrato de ${profile.name}`} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      (() => {
+        const read = () => {
+          try {
+            return localStorage.getItem("theme");
+          } catch {
+            return null;
+          }
+        };
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = read() ?? (prefersDark ? "dark" : "light");
+      })();
+    </script>
   </head>
-  <body class="relative text-[#F4F1FA]">
-    <div
-      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-[#11121A]
-      bg-[radial-gradient(ellipse_75%_60%_at_50%_-20%,rgba(132,94,194,0.25),transparent_65%),radial-gradient(ellipse_45%_35%_at_85%_15%,rgba(214,93,177,0.16),transparent),radial-gradient(ellipse_35%_30%_at_10%_85%,rgba(255,150,113,0.1),transparent)]"
-    >
-    </div>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <Header />
     <slot />
+    <Footer />
     <SpeedInsights />
     <Analytics />
-    <Footer />
-    <style is:global>
-      :root {
-        color-scheme: dark;
-      }
-
-      html {
-        font-family: "Onest Variable", system-ui, sans-serif;
-        background: #11121a;
-        scroll-behavior: smooth;
-      }
-
-      body {
-        color: #f4f1fa;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        overscroll-behavior: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-
-      @media (max-width: 767px) {
-        body {
-          padding-bottom: 0;
-        }
-      }
-
-      #header-nav {
-        animation: blur linear both 0.5s;
-        animation-timeline: scroll();
-        animation-range: 0 500px;
-      }
-
-      @keyframes blur {
-        to {
-          backdrop-filter: blur(20px);
-          border-width: 1px;
-          border-color: rgba(167, 139, 250, 0.28);
-          padding: 0.25rem 0.75rem;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          background-color: rgba(24, 22, 34, 0.88);
-          border-radius: 9999px;
-        }
-      }
-
-    </style>
   </body>
 </html>

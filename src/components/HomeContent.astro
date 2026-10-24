@@ -1,58 +1,48 @@
 ---
-import Experience from "./Experience.astro";
-import SectionContainer from "./SectionContainer.astro";
-import CodeIcon from "./Icons/Code.astro";
-import Projects from "./Projects.astro";
 import Hero from "./Hero.astro";
-import Briefcase from "./Icons/Briefcase.astro";
-import TitleSection from "./TitleSection.astro";
-import ProfileCheck from "./Icons/ProfileCheck.astro";
+import Section from "./Section.astro";
+import ProjectGrid from "./ProjectGrid.astro";
+import ExperienceList from "./ExperienceList.astro";
+import Skills from "./Skills.astro";
+import Certifications from "./Certifications.astro";
 import AboutMe from "./AboutMe.astro";
-import LogroIcon from "./Icons/Logro.astro";
-import Logros from "./Logros.astro";
-import Slider from "./Slider.astro";
+import Contact from "./Contact.astro";
 ---
 
-<main class="px-4" id="inicio">
-  <SectionContainer class="py-44 pb-32">
-    <Hero />
-  </SectionContainer>
+<main id="contenido">
+  <Hero />
+
+  <Section id="experiencia" title="Experiencia">
+    <ExperienceList />
+  </Section>
+
+  <Section id="proyectos" title="Proyectos">
+    <ProjectGrid />
+  </Section>
+
+  <Section id="habilidades" title="Habilidades y certificaciones">
+    <div class="skills-certs">
+      <Skills />
+      <Certifications />
+    </div>
+  </Section>
+
+  <Section id="sobre-mi" title="Sobre mí">
+    <AboutMe />
+  </Section>
+
+  <Contact />
 </main>
 
-<div class="space-y-24">
-  <SectionContainer>
-    <Slider />
-  </SectionContainer>
+<style>
+  .skills-certs {
+    display: grid;
+    gap: var(--space-6);
+  }
 
-  <SectionContainer id="experiencia">
-    <TitleSection>
-      <Briefcase class="size-8" />
-      Experiencia Laboral
-    </TitleSection>
-    <Experience />
-  </SectionContainer>
-
-  <SectionContainer id="proyectos">
-    <TitleSection>
-      <CodeIcon class="" />
-      Proyectos
-    </TitleSection>
-    <Projects />
-  </SectionContainer>
-
-  <SectionContainer>
-    <TitleSection>
-      <LogroIcon class="size-8" />
-      Logros
-    </TitleSection>
-    <Logros />
-  </SectionContainer>
-
-  <SectionContainer id="sobre-mi">
-    <TitleSection>
-      <ProfileCheck class="size-8" />
-      Sobre mí
-    </TitleSection>
-    <AboutMe />
-  </SectionContainer>
-</div>
+  @media (min-width: 1024px) {
+    .skills-certs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

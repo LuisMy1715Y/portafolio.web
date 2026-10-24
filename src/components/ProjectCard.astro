@@ -1,0 +1,158 @@
+---
+import Badge from "./Badge.astro";
+import ArrowUpRight from "./Icons/ArrowUpRight.astro";
+import GitHubIcon from "./Icons/GitHub.astro";
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const hasLinks = Boolean(project.site ?? project.repo);
+---
+
+<article class="card">
+  <div class="card-media">
+    {
+      project.image && (
+        <img src={project.image.src} alt={project.image.alt} width="1920" height="1080" loading="lazy" decoding="async" />
+      )
+    }
+    {!project.image && <span class="card-placeholder" aria-hidden="true">{project.title}</span>}
+  </div>
+  <div class="card-body">
+    {project.label && <p class="block-title">{project.label}</p>}
+    <h3 class="card-title">{project.title}</h3>
+    <p class="card-description">{project.description}</p>
+    <ul class="card-stack" aria-label="Tecnologías">
+      {
+        project.stack.map((tech) => (
+          <li>
+            <Badge>{tech}</Badge>
+          </li>
+        ))
+      }
+    </ul>
+    {
+      hasLinks && (
+        <div class="card-links">
+          {project.site && (
+            <a class="card-link" href={project.site} target="_blank" rel="noopener noreferrer">
+              Sitio
+              <ArrowUpRight />
+              <span class="sr-only">de {project.title} (se abre en una pestaña nueva)</span>
+            </a>
+          )}
+          {project.repo && (
+            <a class="card-link" href={project.repo} target="_blank" rel="noopener noreferrer">
+              <GitHubIcon />
+              Código
+              <span class="sr-only">de {project.title} en GitHub (se abre en una pestaña nueva)</span>
+            </a>
+          )}
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: var(--border-w) solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-xs);
+    transition: border-color var(--t-base) var(--ease-out);
+  }
+
+  .card:hover {
+    border-color: var(--ink-4);
+  }
+
+  .card-media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    border-bottom: var(--border-w) solid var(--line);
+    background: var(--surface-2);
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .card-placeholder {
+    color: var(--ink-4);
+    font-size: var(--text-2xl);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+  }
+
+  .card-title {
+    font-size: var(--text-lg);
+  }
+
+  .card-description {
+    color: var(--ink-3);
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+  }
+
+  .card-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-top: auto;
+    padding-top: var(--space-1);
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap);
+    color: var(--ink);
+    font-size: var(--text-sm);
+    font-weight: var(--fw-semibold);
+    transition: color var(--t-fast) var(--ease-out);
+  }
+
+  .card-link:hover {
+    color: var(--accent-text);
+  }
+
+  @container (min-width: 600px) {
+    .card {
+      flex-direction: row;
+    }
+
+    .card-media {
+      flex: 0 0 50%;
+      aspect-ratio: auto;
+      border-bottom: 0;
+      border-right: var(--border-w) solid var(--line);
+    }
+  }
+</style>

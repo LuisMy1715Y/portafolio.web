@@ -1,0 +1,127 @@
+---
+import { experience, type Experience } from "../data/experience";
+
+const periodOf = (item: Experience) => {
+  const start = item.roles.at(-1)?.date.split(" — ")[0] ?? "";
+  const end = item.roles[0]?.date.split(" — ")[1] ?? "";
+  return `${start} — ${end}`;
+};
+---
+
+<ol class="companies">
+  {
+    experience.map((item) => (
+      <li class="company">
+        <header class="company-header">
+          <h3 class="company-name">{item.company}</h3>
+          <p class="company-period tabular">{periodOf(item)}</p>
+        </header>
+
+        <ol class="roles">
+          {item.roles.map((role) => (
+            <li class="role">
+              <p class="role-date tabular">{role.date}</p>
+              <div class="role-body">
+                <h4 class="role-title">{role.title}</h4>
+                <p class="role-description">{role.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .companies {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .company {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .company + .company {
+    padding-top: var(--space-8);
+    border-top: var(--border-w) solid var(--line);
+  }
+
+  .company-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-3);
+    row-gap: var(--space-1);
+  }
+
+  .company-name {
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+  }
+
+  .company-period {
+    color: var(--ink-4);
+    font-size: var(--text-sm);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .roles {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .role {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .role-date {
+    color: var(--ink-4);
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+    white-space: nowrap;
+  }
+
+  .company:first-child .role:first-child .role-date {
+    color: var(--accent-text);
+    font-weight: var(--fw-medium);
+  }
+
+  .role-body {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .role-title {
+    font-size: var(--text-lg);
+    font-weight: var(--fw-semibold);
+    line-height: var(--leading-snug);
+  }
+
+  .role-description {
+    max-width: var(--measure);
+    color: var(--ink-3);
+    font-size: var(--text-body);
+    line-height: var(--leading-normal);
+  }
+
+  @media (min-width: 640px) {
+    .role {
+      grid-template-columns: var(--date-col) minmax(0, 1fr);
+      align-items: baseline;
+      column-gap: var(--space-12);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .role {
+      column-gap: var(--space-16);
+    }
+  }
+</style>

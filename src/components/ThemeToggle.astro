@@ -1,0 +1,79 @@
+---
+import Sun from "./Icons/Sun.astro";
+import Moon from "./Icons/Moon.astro";
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label="Cambiar tema de color">
+  <Sun />
+  <Moon />
+</button>
+
+<script>
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+
+  const labelFor = (theme: string) =>
+    theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro";
+
+  const save = (theme: string) => {
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      return;
+    }
+  };
+
+  const apply = (theme: string) => {
+    root.dataset.theme = theme;
+    button?.setAttribute("aria-label", labelFor(theme));
+  };
+
+  apply(root.dataset.theme ?? "light");
+
+  button?.addEventListener("click", () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    apply(next);
+    save(next);
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    border-radius: var(--radius-md);
+    color: var(--ink-3);
+    transition:
+      color var(--t-fast) var(--ease-out),
+      background-color var(--t-fast) var(--ease-out);
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+    background: var(--surface-2);
+  }
+
+  .theme-toggle:focus-visible {
+    border-radius: var(--radius-md);
+  }
+
+  .theme-toggle :global(.icon) {
+    grid-area: 1 / 1;
+    width: var(--icon-md);
+    height: var(--icon-md);
+  }
+
+  .theme-toggle :global([data-icon="sun"]) {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle :global([data-icon="sun"]) {
+    display: block;
+  }
+
+  :global([data-theme="dark"]) .theme-toggle :global([data-icon="moon"]) {
+    display: none;
+  }
+</style>
